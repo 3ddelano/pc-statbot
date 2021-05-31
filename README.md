@@ -21,6 +21,12 @@ Download the repo as a zip and extract it to a folder. Open a command prompt in 
 
 # Usage
 Either run `start.cmd` or open a terminal and run `node server.js`
+For the first run, goto any channel you want the stats to appear and type `s.start`
+
+## Commands
+- `s.help` - Shows a help message
+- `s.ping` - Check API latency
+- `s.start` - Start the bot (once only)
 
 
 ## config.json
