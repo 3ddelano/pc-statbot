@@ -21,6 +21,7 @@ Download the repo as a zip and extract it to a folder. Open a command prompt in 
 
 # Usage
 Either run `start.cmd` or open a terminal and run `node server.js`
+<br>
 For the first run, goto any channel you want the stats to appear and type `s.start`
 
 ## Commands
@@ -38,7 +39,12 @@ This is the configuration file used by the program.
 | interval | integer | The time in seconds to wait before updating the stats each time |
 
 ## Bugs / Suggestions
-Report any bugs / glitch, or make a suggestion using the github issues section or join the support server [Join Server](https://discord.gg/FZY9TqW).
+Report any bugs / glitches, or make a suggestion using the github issues section or join the support server [Join Server](https://discord.gg/FZY9TqW).
+
+## Other bots
+Check out my other bots
+- [Delano Tatusmi](https://delano-tatsumi.herokuapp.com)
+- [House Builder](https://house-builder.herokuapp.com)
 
 ## Support
 Join the Discord Server: [3ddelano Cafe](https://discord.gg/FZY9TqW)
