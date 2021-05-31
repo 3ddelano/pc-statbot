@@ -6,9 +6,10 @@ A self hosted Discord bot to display your pc stats.
 <img alt="screenshot" src="https://cdn.discordapp.com/attachments/360062738615107605/848939420622913556/unknown.png" />
 
 # Features
-- #### Displays stats like CPU Usage, Memory and Battery stats
-- #### Easy to host
-- #### One of a kind
+- ### Displays periodically updated stats like CPU Usage, Memory and Battery stats
+- ### View or share your pc stats to other devices
+- ### Easy to host
+- ### One of a kind
 
 
 # Installation
