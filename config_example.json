@@ -1,4 +1,5 @@
 {
-	"token": "token from discord bot page",
+	"token": "token from bot section of discord developer page",
+	"clientID": "client id from oauth2 section of discord developer page"
 	"interval": 30
 }

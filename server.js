@@ -79,6 +79,8 @@ client.on('message', async (message) => {
 
 try {
 	console.log("Starting PC STAT BOT");
+	if (config.clientID) console.log(`Invite Link: https://discord.com/oauth2/authorize?client_id=${config.clientID}&scope=bot&permissions=8`)
+
 	client.login(config.token);
 } catch (err) {
 	console.log('Error logging in.', err);

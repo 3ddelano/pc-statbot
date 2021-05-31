@@ -15,14 +15,15 @@ A self hosted Discord bot to display your pc stats.
 Download the repo as a zip and extract it to a folder. Open a command prompt in that folder and and then run the command `npm install`  (needs [Node.js](https://nodejs.org/)).
 - Rename the file `config_-_example.json` to `config.json`.
 - Goto [Discord Developer Page](https://discord.com/developers/applications) and make a new application.
-- Give it any name and then click on the Bot tab on the left.
-- Copy the token value and put it in the `config.json` file.
+- Give it any name.
+- Then go to the OAuth2 tab and copy the ClientID and paste it in the `config.json` file <img src="https://cdn.discordapp.com/attachments/360062738615107605/848953117269950534/unknown.png">
+- Copy the token value from the Bot tab and paste it in the `config.json` file <img src="https://cdn.discordapp.com/attachments/360062738615107605/848953552876339248/unknown.png">
 
 
 # Usage
 Either run `start.cmd` or open a terminal and run `node server.js`
 <br>
-For the first run, goto any channel you want the stats to appear and type `s.start`
+For the first run, click on the invite link in the terminal and add the bot to whichever server you want, then goto any channel in that server where you want the stats and type `s.start`
 
 ## Commands
 - `s.help` - Shows a help message
@@ -36,6 +37,7 @@ This is the configuration file used by the program.
 | Key      | Type    | Value                                                           |
 | -------- | ------- | --------------------------------------------------------------- |
 | token    | string  | The token of the bot from Discord Developer Page                |
+| clientID | string  | The client ID of the bot from Discord Developer Page            |
 | interval | integer | The time in seconds to wait before updating the stats each time |
 
 ## Bugs / Suggestions
