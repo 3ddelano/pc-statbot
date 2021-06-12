@@ -1,5 +1,3 @@
-const info = require("systeminformation");
-const os = require("os");
 const fs = require("fs");
 const moment = require("moment");
 
@@ -9,29 +7,35 @@ const client = new Discord.Client();
 
 let MESSAGE;
 
-const conversionFactor = 9.3132 * 1e-10;
+// load enabled components
+const component_names = fs.readdirSync('./components/');
+const components = new Map();
+component_names.forEach(file_name => {
+	if (!file_name.endsWith('.js')) return;
+
+	const file = require(`./components/${file_name}`);
+
+	const component_name = file_name.split('.js').join('');
+
+	if (config.components[component_name])
+		components.set(component_name, file);
+});
 
 async function update() {
 	if (!MESSAGE) return console.log('Unable to fetch channel or message.');
+
 	let payload = '';
-	let currentLoad = (await info.currentLoad().then(data => data.currentLoad)).toFixed(2);
-	let batteryData = await info.battery();
-	if (batteryData.hasBattery) {
-		payload += `:battery: **Battery:** ${batteryData.percent}% ${batteryData.isCharging ? '(Charging)' : '(Not Charging)'}\n`;
-	}
 
-	let totalMem = (os.totalmem() * conversionFactor).toFixed(2);
-	let usedMem = (totalMem - (os.freemem() * conversionFactor)).toFixed(2);
+	const promises = [];
+	components.forEach(component => promises.push(component.update()));
 
-	payload += `:gear: **CPU Usage:** ${currentLoad}%\n`;
-	payload += `:tools: **Memory Usage:** ${usedMem} GB / ${totalMem} GB\n`;
-
+	const values = await Promise.all(promises);
+	payload = values.join('\n');
 
 	payload += `\n:timer: **Last Updated:** ${moment().format("hh:mm:ss A DD-MM-YYYY")} `;
 	MESSAGE.edit(payload);
 	setTimeout(update, config.interval * 1000);
 }
-
 
 client.on('ready', async () => {
 	client.user.setPresence({ activity: { name: 'Watching s.help' }, status: 'active' })
@@ -41,6 +45,8 @@ client.on('ready', async () => {
 		let channel = await client.channels.fetch(config.channelID);
 		MESSAGE = await channel.messages.fetch(config.messageID);
 		update();
+	} else {
+		console.log("Waiting for s.start");
 	}
 });
 
@@ -49,7 +55,7 @@ client.on('message', async (message) => {
 	if (message.content === 's.start') {
 		if (config.messageID) return message.reply("stats has already started.");
 
-		let msg = await message.channel.send("Starting...");
+		let msg = await message.channel.send("Updatig stats...");
 		config.messageID = msg.id;
 		config.channelID = msg.channel.id;
 		MESSAGE = msg;
@@ -58,7 +64,7 @@ client.on('message', async (message) => {
 	}
 	if (message.content === 's.ping') {
 		const msg = await message.channel.send('Ping?')
-		msg.edit(`Pong! Latency is ${Math.round(msg.createdTimestamp - message.createdTimestamp)} ms.API Latency is ${Math.round(client.ws.ping)} ms`)
+		msg.edit(`Pong! Latency is ${Math.round(msg.createdTimestamp - message.createdTimestamp)} ms. API Latency is ${Math.round(client.ws.ping)} ms`)
 	}
 	if (message.content === 's.help') {
 		const help = [

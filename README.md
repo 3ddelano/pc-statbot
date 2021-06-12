@@ -10,6 +10,7 @@ A self hosted Discord bot to display your pc stats.
 - ### View or share your pc stats to other devices
 - ### Easy to host
 - ### One of a kind
+- ### Modular design
 
 
 # Installation
@@ -35,11 +36,34 @@ For the first run, click on the invite link in the terminal and add the bot to w
 ## config.json
 This is the configuration file used by the program.
 
-| Key      | Type    | Value                                                           |
-| -------- | ------- | --------------------------------------------------------------- |
-| token    | string  | The token of the bot from Discord Developer Page                |
-| clientID | string  | The client ID of the bot from Discord Developer Page            |
-| interval | integer | The time in seconds to wait before updating the stats each time |
+| Key        | Type    | Value                                                            |
+| ---------- | ------- | ---------------------------------------------------------------- |
+| token      | string  | The token of the bot from Discord Developer Page                 |
+| clientID   | string  | The client ID of the bot from Discord Developer Page             |
+| interval   | integer | The time in seconds to wait before updating the stats each time  |
+| components | object  | An object with key as component name and value as enabled status |
+
+## Available Components
+
+| Name        | Description                                  |
+| ----------- | -------------------------------------------- |
+| battery     | Shows battery percentage and charging status |
+| memoryUsage | Shows used memory and total memory           |
+| cpuUsage    | Shows CPU usage percentage                   |
+
+## Example config.json
+```json
+{
+	"token": "your bot token",
+	"clientID": "your bot client id",
+	"interval": 30,
+	"components": {
+		"battery": true,
+		"cpuUsage": true,
+		"memoryUsage": true
+	}
+}
+```
 
 ## Bugs / Suggestions
 Report any bugs / glitches, or make a suggestion using the github issues section or join the support server [Join Server](https://discord.gg/FZY9TqW).
