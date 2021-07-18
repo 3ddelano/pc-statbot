@@ -44,6 +44,7 @@ client.on('ready', async () => {
 	if (config.messageID && config.channelID) {
 		let channel = await client.channels.fetch(config.channelID);
 		MESSAGE = await channel.messages.fetch(config.messageID);
+		console.log(`Updating every ${config.interval}s...`);
 		update();
 	} else {
 		console.log("Waiting for s.start");
