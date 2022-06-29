@@ -4,7 +4,7 @@
 	"description": "A Discord bot to keep track of your pc temp and ram usage.",
 	"main": "server.js",
 	"scripts": {
-		"test": "node server.js",
+		"dev": "nodemon server.js",
 		"start": "node server.js"
 	},
 	"keywords": [
@@ -23,5 +23,8 @@
 		"discord.js": "^12.5.3",
 		"moment": "^2.29.3",
 		"systeminformation": "^5.11.22"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.18"
 	}
 }
