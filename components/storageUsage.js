@@ -1,3 +1,5 @@
+// Code by LukasL28: github.com/LukasL28
+
 const checkDiskSpace = require('check-disk-space').default;
 const os = require('os');
 
