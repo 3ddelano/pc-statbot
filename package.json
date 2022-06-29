@@ -20,7 +20,7 @@
 	"license": "ISC",
 	"dependencies": {
 		"discord.js": "^12.5.3",
-		"moment": "^2.29.1",
-		"systeminformation": "^5.7.4"
+		"moment": "^2.29.3",
+		"systeminformation": "^5.11.22"
 	}
 }
