@@ -6,7 +6,7 @@ A self hosted Discord bot to display your pc stats.
 <img alt="screenshot" src="https://cdn.discordapp.com/attachments/360062738615107605/848939420622913556/unknown.png" />
 
 # Features
-- ### Displays periodically updated stats like CPU Usage, Memory and Battery stats
+- ### Displays periodically updated stats like CPU Usage, Memory, Storage and Battery stats
 - ### View or share your pc stats to other devices
 - ### Easy to host
 - ### One of a kind
@@ -50,6 +50,7 @@ This is the configuration file used by the program.
 | battery     | Shows battery percentage and charging status |
 | memoryUsage | Shows used memory and total memory           |
 | cpuUsage    | Shows CPU usage percentage                   |
+| storageUsage| Shows used storage and total storage       	 |
 
 ## Example config.json
 ```json
@@ -60,7 +61,8 @@ This is the configuration file used by the program.
 	"components": {
 		"battery": true,
 		"cpuUsage": true,
-		"memoryUsage": true
+		"memoryUsage": true,
+		"storageUsage": true
 	}
 }
 ```
