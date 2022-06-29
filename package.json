@@ -19,6 +19,7 @@
 	"repository": "github:3ddelano/pc-statbot",
 	"license": "ISC",
 	"dependencies": {
+		"check-disk-space": "^3.3.0",
 		"discord.js": "^12.5.3",
 		"moment": "^2.29.3",
 		"systeminformation": "^5.11.22"
