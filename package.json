@@ -4,7 +4,7 @@
 	"description": "A Discord bot to keep track of your pc temp and ram usage.",
 	"main": "server.js",
 	"scripts": {
-		"test": "node server.js",
+		"dev": "nodemon server.js",
 		"start": "node server.js"
 	},
 	"keywords": [
@@ -19,8 +19,12 @@
 	"repository": "github:3ddelano/pc-statbot",
 	"license": "ISC",
 	"dependencies": {
+		"check-disk-space": "^3.3.0",
 		"discord.js": "^12.5.3",
-		"moment": "^2.29.1",
-		"systeminformation": "^5.7.4"
+		"moment": "^2.29.3",
+		"systeminformation": "^5.11.22"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.18"
 	}
 }
