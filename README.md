@@ -3,7 +3,7 @@ A self hosted Discord bot to display your pc stats.
 <br>
 <img alt="Nodejs" src="https://img.shields.io/badge/-Node.js-43853d?style=flat-square&logo=Node.js&logoColor=white" />
 <br>
-<img alt="screenshot" src="https://cdn.discordapp.com/attachments/360062738615107605/848939420622913556/unknown.png" />
+<img alt="screenshot" src="./documentation/img/screen.PNG" />
 
 # Features
 - ### Displays periodically updated stats like CPU Usage, Memory, Storage and Battery stats
