@@ -36,12 +36,15 @@ For the first run, click on the invite link in the terminal and add the bot to w
 ## config.json
 This is the configuration file used by the program.
 
-| Key        | Type    | Value                                                            |
-| ---------- | ------- | ---------------------------------------------------------------- |
-| token      | string  | The token of the bot from Discord Developer Page                 |
-| clientID   | string  | The client ID of the bot from Discord Developer Page             |
-| interval   | integer | The time in seconds to wait before updating the stats each time  |
-| components | object  | An object with key as component name and value as enabled status |
+| Key             | Type    | Value                                                            |
+| ----------      | ------- | ---------------------------------------------------------------- |
+| token           | string  | The token of the bot from Discord Developer Page                 |
+| clientID        | string  | The client ID of the bot from Discord Developer Page             |
+| interval        | integer | The time in seconds to wait before updating the stats each time  |
+| title		      | string  | Will be displayed in the first row of the Bot message			   |
+| activityDisplay | boolean | If the activityDisplay of the Bot should be set				   |
+| displayTimestamp| boolean/ integer | Witch timestamp the Bot should display. [Config help here](#time) 	   |
+| components 	  | object  | An object with key as component name and value as enabled status |
 
 ## Available Components
 
@@ -55,17 +58,32 @@ This is the configuration file used by the program.
 ## Example config.json
 ```json
 {
-	"token": "your bot token",
-	"clientID": "your bot client id",
-	"interval": 30,
-	"components": {
-		"battery": true,
-		"cpuUsage": true,
-		"memoryUsage": true,
-		"storageUsage": true
-	}
-}
+    "token": "token from bot section of discord developer page",
+    "clientID": "client id from oauth2 section of discord developer page",
+    "interval": 30,
+    "title": "pc-statbot",
+    "activityDisplay": true,
+    "displayTimestamp": true,
+    "components": {
+      "battery": true,
+      "cpuUsage": true,
+      "memoryUsage": true,
+      "storageUsage": true
+    }
+  }
 ```
+
+## Time format options <a name = "time">
+
+```json
+	"displayTimestamp": true,
+```
+
+ -  `false`: displays no timestamp
+  - `true`: displays the time in the 12h format
+  - `12h`: displays the time in the 12h format 
+  - `24h`: displays the time in the 24h format
+
 
 ## Bugs / Suggestions
 Report any bugs / glitches, or make a suggestion using the github issues section or join the support server [Join Server](https://discord.gg/FZY9TqW).
