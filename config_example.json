@@ -4,6 +4,7 @@
     "interval": 30,
     "title": "pc-statbot",
     "activityDisplay": true,
+    "displayTimestamp": true,
     "components": {
       "battery": true,
       "cpuUsage": true,

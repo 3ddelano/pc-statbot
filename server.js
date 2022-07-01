@@ -36,7 +36,20 @@ async function update() {
 	const values = await Promise.all(promises);
 	payload += values.join('\n');
 
-	payload += `\n:timer: **Last Updated:** ${moment().format("hh:mm:ss A DD-MM-YYYY")} `;
+	switch (config.displayTimestamp) {
+		case false:
+			break;
+		case "12h": case "12": case "": case true:
+			payload += `\n:timer: **Last Updated:** ${moment().format("hh:mm:ss A DD-MM-YYYY")} `;
+			break;
+		case "24h": case "24":
+			payload += `\n:timer: **Last Updated:** ${moment().format("HH:mm:ss DD-MM-YYYY")} `;
+			break;
+		default:
+			console.error('Invalid displayTimestamp config value.');
+			break;
+	}
+
 	MESSAGE.edit(payload);
 	setTimeout(update, config.interval * 1000);
 }
