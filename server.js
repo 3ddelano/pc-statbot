@@ -26,11 +26,13 @@ async function update() {
 
 	let payload = '';
 
+	payload += `\n__**${config.title}**__\n`;
+
 	const promises = [];
 	components.forEach(component => promises.push(component.update()));
 
 	const values = await Promise.all(promises);
-	payload = values.join('\n');
+	payload += values.join('\n');
 
 	payload += `\n:timer: **Last Updated:** ${moment().format("hh:mm:ss A DD-MM-YYYY")} `;
 	MESSAGE.edit(payload);

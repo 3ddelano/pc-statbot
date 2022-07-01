@@ -7,5 +7,6 @@
       "cpuUsage": true,
       "memoryUsage": true,
       "storageUsage": true
-    }
+    },
+    "title": "pc-statbot"
   }
