@@ -42,7 +42,9 @@ async function update() {
 }
 
 client.on('ready', async () => {
-	client.user.setPresence({ activity: { name: 'Watching s.help' }, status: 'active' })
+	if (config.activityDisplay == true){
+		client.user.setPresence({ activity: { name: 'Watching s.help' }, status: 'active' })
+	}
 	console.log(`Logged in as ${client.user.tag} !`);
 
 	if (config.messageID && config.channelID) {
