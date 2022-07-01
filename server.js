@@ -90,7 +90,7 @@ client.on('message', async (message) => {
 
 try {
 	console.log("Starting PC STAT BOT");
-	if (config.clientID) console.log(`Invite Link: https://discord.com/oauth2/authorize?client_id=${config.clientID}&scope=bot&permissions=8`)
+	if (config.clientID) console.log(`Invite Link: https://discord.com/oauth2/authorize?client_id=${config.clientID}&scope=bot&permissions=2048`)
 
 	client.login(config.token);
 } catch (err) {
