@@ -26,7 +26,9 @@ async function update() {
 
 	let payload = '';
 
-	payload += `\n__**${config.title}**__\n`;
+	if (config.title != ""){
+		payload += `\n__**${config.title}**__\n`;
+	}
 
 	const promises = [];
 	components.forEach(component => promises.push(component.update()));
