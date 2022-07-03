@@ -2,6 +2,9 @@
     "token": "token from bot section of discord developer page",
     "clientID": "client id from oauth2 section of discord developer page",
     "interval": 30,
+    "title": "pc-statbot",
+    "activityDisplay": true,
+    "displayTimestamp": true,
     "components": {
       "battery": true,
       "cpuUsage": true,

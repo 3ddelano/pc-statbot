@@ -26,19 +26,38 @@ async function update() {
 
 	let payload = '';
 
+	if (config.title != ""){
+		payload += `\n__**${config.title}**__\n`;
+	}
+
 	const promises = [];
 	components.forEach(component => promises.push(component.update()));
 
 	const values = await Promise.all(promises);
-	payload = values.join('\n');
+	payload += values.join('\n');
 
-	payload += `\n:timer: **Last Updated:** ${moment().format("hh:mm:ss A DD-MM-YYYY")} `;
+	switch (config.displayTimestamp) {
+		case false:
+			break;
+		case "12h": case "12": case "": case true:
+			payload += `\n:timer: **Last Updated:** ${moment().format("hh:mm:ss A DD-MM-YYYY")} `;
+			break;
+		case "24h": case "24":
+			payload += `\n:timer: **Last Updated:** ${moment().format("HH:mm:ss DD-MM-YYYY")} `;
+			break;
+		default:
+			console.error('Invalid displayTimestamp config value.');
+			break;
+	}
+
 	MESSAGE.edit(payload);
 	setTimeout(update, config.interval * 1000);
 }
 
 client.on('ready', async () => {
-	client.user.setPresence({ activity: { name: 'Watching s.help' }, status: 'active' })
+	if (config.activityDisplay == true){
+		client.user.setPresence({ activity: { name: 'Watching s.help' }, status: 'active' })
+	}
 	console.log(`Logged in as ${client.user.tag} !`);
 
 	if (config.messageID && config.channelID) {
@@ -86,7 +105,7 @@ client.on('message', async (message) => {
 
 try {
 	console.log("Starting PC STAT BOT");
-	if (config.clientID) console.log(`Invite Link: https://discord.com/oauth2/authorize?client_id=${config.clientID}&scope=bot&permissions=8`)
+	if (config.clientID) console.log(`Invite Link: https://discord.com/oauth2/authorize?client_id=${config.clientID}&scope=bot&permissions=2048`)
 
 	client.login(config.token);
 } catch (err) {
