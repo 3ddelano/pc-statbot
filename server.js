@@ -1,8 +1,8 @@
 const fs = require("fs");
 const moment = require("moment");
+const Discord = require("discord.js");
 
 const config = JSON.parse(fs.readFileSync("./config.json"));
-const Discord = require("discord.js");
 const client = new Discord.Client();
 
 let MESSAGE;
@@ -13,11 +13,11 @@ const components = new Map();
 componentNames.forEach((fileName) => {
   if (!fileName.endsWith(".js")) return;
 
-  const file = require(`./components/${fileName}`);
+  const script = require(`./components/${fileName}`);
   const componentName = fileName.split(".js").join("");
 
   if (config.components[componentName]) {
-    components.set(componentName, file);
+    components.set(componentName, script);
   }
 });
 
@@ -27,32 +27,70 @@ async function update() {
 
   let payload = "";
 
-  const promises = [];
-  components.forEach((component) => promises.push(component.update()));
+  if (config.title) {
+    payload += `__**${config.title}**__\n`;
+  }
+
+  const promises = Array.from(components.values()).map((component) =>
+    component.update()
+  );
 
   const values = await Promise.all(promises);
-  payload = values.join("\n");
 
-  payload += `\n:timer: **Last Updated:** ${moment().format(
-    "hh:mm:ss A DD-MM-YYYY"
-  )}`;
-  MESSAGE.edit(payload);
+  payload += values.join("\n");
+
+  switch (config.displayTimestamp) {
+    case false:
+      break;
+
+    case "12h":
+    case "12":
+    case "":
+    case true:
+      payload += `\n:timer: **Last Updated:** ${moment().format(
+        "hh:mm:ss A DD-MM-YYYY"
+      )} `;
+      break;
+
+    case "24h":
+    case "24":
+      payload += `\n:timer: **Last Updated:** ${moment().format(
+        "HH:mm:ss DD-MM-YYYY"
+      )} `;
+      break;
+    default:
+      console.log(
+        "Invalid displayTimestamp config value expected one of 'false', '12h', '24h', 'true'."
+      );
+      break;
+  }
+
+  if (!MESSAGE) return;
+  await MESSAGE.edit(payload);
   setTimeout(update, config.interval * 1000);
 }
 
 client.on("ready", async () => {
-  client.user.setPresence({
-    activity: { name: "Watching s.help" },
-    status: "active",
-  });
+  if (config.displayActivity === true) {
+    client.user.setPresence({
+      activity: { name: "Watching s.help" },
+      status: "active",
+    });
+  } else if (config.displayActivity) {
+    client.user.setPresence({
+      activity: { name: config.displayActivity },
+      status: "active",
+    });
+  }
   console.log(`Logged in as ${client.user.tag} !`);
 
+  let alreadyStarted = false;
   if (config.messageID && config.channelID) {
     try {
       const channel = await client.channels.fetch(config.channelID);
       MESSAGE = await channel.messages.fetch(config.messageID);
       console.log(`Updating every ${config.interval}s...`);
-      update();
+      alreadyStarted = true;
     } catch (err) {
       console.log("Unable to fetch previous message.");
       config.messageID = undefined;
@@ -60,32 +98,33 @@ client.on("ready", async () => {
       MESSAGE = undefined;
       fs.writeFileSync("./config.json", JSON.stringify(config, null, 2));
     }
-  } else {
-    console.log("Waiting for s.start");
   }
+
+  if (!alreadyStarted) console.log("Waiting for s.start");
+  else update();
 });
 
 client.on("message", async (message) => {
   if (message.author.bot) return;
 
   if (message.content === "s.start") {
-    if (config.messageID) return message.reply("stats has already started.");
+    if (MESSAGE) return message.reply("stats is already started.");
 
-    let msg = await message.channel.send("Updating stats...");
+    const msg = await message.reply("starting stats...");
     config.messageID = msg.id;
     config.channelID = msg.channel.id;
     MESSAGE = msg;
     fs.writeFileSync("./config.json", JSON.stringify(config, null, 2));
     update();
   } else if (message.content === "s.stop") {
-    if (!config.messageID) return message.reply("stats is not started.");
+    if (!MESSAGE) return message.reply("stats is not started.");
 
     const msg = await message.reply("stopping stats...");
     config.messageID = undefined;
     config.channelID = undefined;
     MESSAGE = undefined;
     fs.writeFileSync("./config.json", JSON.stringify(config, null, 2));
-    msg.edit("Stats was stopped.");
+    msg.edit(`<@${message.author.id}>, stats was stopped.`);
   } else if (message.content === "s.ping") {
     const msg = await message.channel.send("Ping?");
     msg.edit(
@@ -103,9 +142,9 @@ client.on("message", async (message) => {
       "`s.stop` - stop updating the stats",
       "`s.help` - shows this message",
       "",
-      "About me",
-      "I am made by Delano Lourenco - https://delano-lourenco.web.app",
-      "For suggestions or bugs join my support server - https://discord.gg/FZY9TqW",
+      "About",
+      "Created by @3ddelano#6033 - https://delano-lourenco.web.app",
+      "For suggestions or bugs join support server - https://discord.gg/FZY9TqW",
     ].join("\n");
     return message.channel.send(help);
   }
@@ -115,7 +154,7 @@ try {
   console.log("Starting PC STAT BOT");
   if (config.clientID)
     console.log(
-      `Invite Link: https://discord.com/oauth2/authorize?client_id=${config.clientID}&scope=bot&permissions=8`
+      `Invite Link: https://discord.com/oauth2/authorize?client_id=${config.clientID}&scope=bot&permissions=2048`
     );
 
   client.login(config.token);
@@ -123,10 +162,13 @@ try {
   console.log("Error logging in.", err);
   client.login(config.token);
 }
+
 client.on("error", (err) => {
   console.log("Dicord Client Error:", err);
   client.login(config.token);
 });
+
 process.on("unhandledRejection", (err) => {
   console.log("Caught Error:", err);
 });
+

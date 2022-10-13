@@ -1,26 +1,32 @@
 {
-	"name": "pc-statbot",
-	"version": "1.0.0",
-	"description": "A Discord bot to keep track of your pc temp and ram usage.",
-	"main": "server.js",
-	"scripts": {
-		"test": "node server.js",
-		"start": "node server.js"
-	},
-	"keywords": [
-		"stats",
-		"discord",
-		"bot",
-		"discordjs",
-		"delano",
-		"lourenco"
-	],
-	"author": "Delano Lourenco",
-	"repository": "github:3ddelano/pc-statbot",
-	"license": "ISC",
-	"dependencies": {
-		"discord.js": "^12.5.3",
-		"moment": "^2.29.1",
-		"systeminformation": "^5.7.4"
-	}
+  "name": "pc-statbot",
+  "version": "1.0.0",
+  "description": "A Discord bot to keep track of your PC stats like CPU temperature, RAM, storage, etc.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "stats",
+    "discord",
+    "discord.js",
+    "pc",
+    "bot",
+    "discordjs",
+    "delano",
+    "lourenco"
+  ],
+  "author": "Delano Lourenco",
+  "repository": "github:3ddelano/pc-statbot",
+  "license": "ISC",
+  "dependencies": {
+    "check-disk-space": "^3.3.0",
+    "discord.js": "^12.5.3",
+    "moment": "^2.29.3",
+    "systeminformation": "^5.11.22"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.18"
+  }
 }
